@@ -1,28 +1,34 @@
 import { useEffect, useState } from "react";
 import { api } from "../api/api";
-import ProductCard from "../components/ProductCard";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     api.get("/products")
-      .then(res => setProducts(res.data));
+      .then(res => {
+        console.log("API RESPONSE:", res.data);
+
+        const data =
+          res.data?.products ||
+          res.data?.data ||
+          res.data ||
+          [];
+
+        setProducts(Array.isArray(data) ? data : []);
+      })
+      .catch(err => console.log(err));
   }, []);
 
   return (
     <div>
-      <h1>🔥 Products</h1>
+      <h1>Home</h1>
 
-      <div style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "15px"
-      }}>
-        {products.map(p => (
-          <ProductCard key={p.id} product={p} />
-        ))}
-      </div>
+      {Array.isArray(products) && products.map((p) => (
+        <div key={p.id}>
+          {p.name}
+        </div>
+      ))}
     </div>
   );
 }

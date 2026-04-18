@@ -5,6 +5,11 @@ import Signup from "./pages/Signup";
 import Shop from "./pages/Shop";
 import ProductPublic from "./pages/shop/ProductPublic";
 
+import UserProduct from "./pages/user/Product";
+import Profile from "./pages/user/Profile";
+import Cart from "./pages/user/Cart";
+import Orders from "./pages/user/Orders";
+
 import ProtectedRoute from "./components/ProtectedRoute";
 import SellerRoute from "./components/SellerRoute";
 
@@ -36,12 +41,36 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/product/:id" element={
-  <ProtectedRoute>
-    <ProductPublic />
-  </ProtectedRoute>
-} />
+        <Route path="/products/:id" element={
+          <ProtectedRoute>
+            <ProductPublic />
+          </ProtectedRoute>
+        } />
 
+        {/* USER ROUTES (GROUPED) */}
+        <Route path="/user/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/user/cart" element={
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/user/orders" element={
+          <ProtectedRoute>
+            <Orders />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/user/product/:id" element={
+          <ProtectedRoute>
+            <UserProduct />
+          </ProtectedRoute>
+        } />
         {/* SELLER PROTECTED */}
         <Route path="/seller" element={
           <SellerRoute>
